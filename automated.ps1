@@ -3,8 +3,9 @@
 Install-Module -Name AzureRM -AllowClobber -Force
 
 ## Connect AzureAD
-$Credential = Get-Credential
-Connect-AzureAD -Credential $Credential
+#$Credential = Get-Credential
+#Connect-AzureAD -Credential $Credential
+Connect-AzureAD 
 
 ## Resource Group access to users based on Role
 New-AzureRmRoleAssignment -ResourceGroupName $rg -SignInName $newuser -RoleDefinitionName $owneraccess
