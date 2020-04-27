@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+- script: |
+    mkdir -p $(Build.ArtifactStagingDirectory)\ADF_Access
+    xcopy "$(Build.SourcesDirectory)\*.ps1" "$(Build.ArtifactStagingDirectory)\ADF_Access" /s /e /y
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+  displayName: 'Prepare Azure Data Factory access Build Artifacts'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Azure Data Factory Artifacts
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)\ADF_Access'
+    artifactName: automate-adf-access
